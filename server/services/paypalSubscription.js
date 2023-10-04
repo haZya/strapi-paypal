@@ -37,16 +37,28 @@ module.exports = () => ({
     checkoutCancelUrl
   ) {
     let paymentIntervalUnit;
+    let intervalUnit;
+    let intervalCount;
     if (paymentInterval === 'YEAR') {
       paymentIntervalUnit = 1;
+      intervalUnit = 'YEAR';
+      intervalCount = 1;
     } else if (paymentInterval === 'MONTH') {
       paymentIntervalUnit = 12;
+      intervalUnit = 'MONTH';
+      intervalCount = 1;
     } else if (paymentInterval === 'WEEK') {
       paymentIntervalUnit = 52;
+      intervalUnit = 'WEEK';
+      intervalCount = 1;
     } else if (paymentInterval === '3_MONTHS') {
       paymentIntervalUnit = 4;
+      intervalUnit = 'MONTH';
+      intervalCount = 3;
     } else if (paymentInterval === '6_MONTHS') {
       paymentIntervalUnit = 2;
+      intervalUnit = 'MONTH';
+      intervalCount = 6;
     }
 
     const data = {
@@ -56,8 +68,8 @@ module.exports = () => ({
       billing_cycles: [
         {
           frequency: {
-            interval_unit: paymentInterval,
-            interval_count: 1,
+            interval_unit: intervalUnit,
+            interval_count: intervalCount,
           },
           tenure_type: 'REGULAR',
           sequence: 1,
