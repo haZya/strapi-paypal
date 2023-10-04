@@ -6,25 +6,25 @@
  *
  */
 
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import {
-  ModalLayout,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
   Box,
   Button,
+  Flex,
   Grid,
   GridItem,
-  Flex,
-  Typography,
-  TextInput,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalLayout,
+  NumberInput,
   SingleSelect,
   SingleSelectOption,
-  NumberInput,
+  TextInput,
   Textarea,
+  Typography,
 } from '@strapi/design-system';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
 const CreateProduct = ({ isVisible, handleClose, handleClickSave }) => {
   const [title, setTitle] = useState('');
@@ -296,6 +296,8 @@ const CreateProduct = ({ isVisible, handleClose, handleClickSave }) => {
                     <SingleSelectOption value="MONTH">Month</SingleSelectOption>
                     <SingleSelectOption value="YEAR">Year</SingleSelectOption>
                     <SingleSelectOption value="WEEK">Week</SingleSelectOption>
+                    <SingleSelectOption value="3_MONTHS">3 Months</SingleSelectOption>
+                    <SingleSelectOption value="6_MONTHS">6 Months</SingleSelectOption>
                   </SingleSelect>
                 ) : (
                   ''

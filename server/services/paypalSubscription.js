@@ -43,6 +43,10 @@ module.exports = () => ({
       paymentIntervalUnit = 12;
     } else if (paymentInterval === 'WEEK') {
       paymentIntervalUnit = 52;
+    } else if (paymentInterval === '3_MONTHS') {
+      paymentIntervalUnit = 4;
+    } else if (paymentInterval === '6_MONTHS') {
+      paymentIntervalUnit = 2;
     }
 
     const data = {

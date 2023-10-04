@@ -5,26 +5,26 @@
  *
  */
 
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Table, Thead, Tbody, Tr, Td, Th, TFooter } from '@strapi/design-system/Table';
-import { Flex } from '@strapi/design-system/Flex';
-import { Box } from '@strapi/design-system/Box';
-import { IconButton } from '@strapi/design-system/IconButton';
-import { Typography } from '@strapi/design-system/Typography';
-import parse from 'html-react-parser';
-import { NextLink, PageLink, Pagination, PreviousLink } from '@strapi/design-system/Pagination';
-import { EmptyStateLayout } from '@strapi/design-system/EmptyStateLayout';
-import { VisuallyHidden } from '@strapi/design-system/VisuallyHidden';
-import { Button } from '@strapi/design-system/Button';
-import CarretUp from '@strapi/icons/CarretUp';
-import CarretDown from '@strapi/icons/CarretDown';
 import { Badge } from '@strapi/design-system/Badge';
+import { Box } from '@strapi/design-system/Box';
+import { Button } from '@strapi/design-system/Button';
+import { EmptyStateLayout } from '@strapi/design-system/EmptyStateLayout';
+import { Flex } from '@strapi/design-system/Flex';
+import { IconButton } from '@strapi/design-system/IconButton';
+import { NextLink, PageLink, Pagination, PreviousLink } from '@strapi/design-system/Pagination';
+import { TFooter, Table, Tbody, Td, Th, Thead, Tr } from '@strapi/design-system/Table';
+import { Typography } from '@strapi/design-system/Typography';
+import { VisuallyHidden } from '@strapi/design-system/VisuallyHidden';
+import CarretDown from '@strapi/icons/CarretDown';
+import CarretUp from '@strapi/icons/CarretUp';
 import Plus from '@strapi/icons/Plus';
-import LinkIcon from './linkIcon';
+import parse from 'html-react-parser';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import SettingLink from './SettingLink';
 import { currencies } from './constant';
 import EmbedCodeModal from './embedCodeModal';
-import SettingLink from './SettingLink';
+import LinkIcon from './linkIcon';
 
 const ProductTable = ({
   products,
@@ -117,6 +117,10 @@ const ProductTable = ({
         mode = 'Year';
       } else if (interval === 'WEEK') {
         mode = 'Weekly';
+      } else if (interval === '3_MONTHS') {
+        mode = '3 Months';
+      } else if (interval === '6_MONTHS') {
+        mode = '6 Months';
       }
     }
 

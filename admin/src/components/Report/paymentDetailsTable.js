@@ -1,37 +1,32 @@
 /* eslint-disable react/jsx-key */
-import React, { useEffect, useState } from "react";
-import { Table, Thead, Tbody, Tr, Td, Th } from "@strapi/design-system/Table";
-import { Box } from "@strapi/design-system/Box";
-import { Typography } from "@strapi/design-system/Typography";
-import { Divider } from "@strapi/design-system/Divider";
-import { Flex } from "@strapi/design-system/Flex";
-import { Badge } from "@strapi/design-system/Badge";
-import parse from "html-react-parser";
-import { useParams, useLocation } from "react-router-dom";
-import { Breadcrumbs, Crumb } from "@strapi/design-system/Breadcrumbs";
-import { Stack } from "@strapi/design-system/Stack";
-import { Link } from "@strapi/design-system/Link";
-import ArrowLeft from "@strapi/icons/ArrowLeft";
-import { IconButton } from "@strapi/design-system/IconButton";
-import CarretUp from "@strapi/icons/CarretUp";
-import ExclamationMarkCircle from "@strapi/icons/ExclamationMarkCircle";
-import { EmptyStateLayout } from "@strapi/design-system/EmptyStateLayout";
-import CarretDown from "@strapi/icons/CarretDown";
-import {
-  NextLink,
-  PageLink,
-  Pagination,
-  PreviousLink,
-} from "@strapi/design-system/Pagination";
-import { currencies } from "../ProductList/constant";
-import { getProductPayments } from "../../utils/apiCalls";
+import { Badge } from '@strapi/design-system/Badge';
+import { Box } from '@strapi/design-system/Box';
+import { Breadcrumbs, Crumb } from '@strapi/design-system/Breadcrumbs';
+import { Divider } from '@strapi/design-system/Divider';
+import { EmptyStateLayout } from '@strapi/design-system/EmptyStateLayout';
+import { Flex } from '@strapi/design-system/Flex';
+import { IconButton } from '@strapi/design-system/IconButton';
+import { Link } from '@strapi/design-system/Link';
+import { NextLink, PageLink, Pagination, PreviousLink } from '@strapi/design-system/Pagination';
+import { Stack } from '@strapi/design-system/Stack';
+import { Table, Tbody, Td, Th, Thead, Tr } from '@strapi/design-system/Table';
+import { Typography } from '@strapi/design-system/Typography';
+import ArrowLeft from '@strapi/icons/ArrowLeft';
+import CarretDown from '@strapi/icons/CarretDown';
+import CarretUp from '@strapi/icons/CarretUp';
+import ExclamationMarkCircle from '@strapi/icons/ExclamationMarkCircle';
+import parse from 'html-react-parser';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { getProductPayments } from '../../utils/apiCalls';
+import { currencies } from '../ProductList/constant';
 
 const limit = 7;
 
 const PaymentDetailsTable = () => {
   const { productId, productName } = useParams();
   const search = useLocation().search;
-  const page = new URLSearchParams(search).get("page");
+  const page = new URLSearchParams(search).get('page');
   const pageNumber = page ? parseInt(page, 10) : 1;
   const offset = pageNumber === 1 ? 0 : (pageNumber - 1) * limit;
 
@@ -52,22 +47,16 @@ const PaymentDetailsTable = () => {
     let order;
 
     if (sortOrderName) {
-      sort = "name";
-      order = sortAscendingName ? "asc" : "desc";
+      sort = 'name';
+      order = sortAscendingName ? 'asc' : 'desc';
     } else if (sortOrderEmail) {
-      sort = "email";
-      order = sortAscendingEmail ? "asc" : "desc";
+      sort = 'email';
+      order = sortAscendingEmail ? 'asc' : 'desc';
     } else if (sortOrderTxnDate) {
-      sort = "date";
-      order = sortAscendingTxnDate ? "asc" : "desc";
+      sort = 'date';
+      order = sortAscendingTxnDate ? 'asc' : 'desc';
     }
-    const response = await getProductPayments(
-      productId,
-      sort,
-      order,
-      offset,
-      limit
-    );
+    const response = await getProductPayments(productId, sort, order, offset, limit);
 
     if (response?.data) {
       setPayments(response.data.payments);
@@ -78,13 +67,13 @@ const PaymentDetailsTable = () => {
 
   const getTransactionAmount = (txnAmount, currency) => {
     const currencyObj = currencies.find(
-      (item) => item.abbreviation.toLowerCase() === currency?.toLowerCase()
+      item => item.abbreviation.toLowerCase() === currency?.toLowerCase()
     );
     const symbol = currencyObj?.symbol;
 
     const txnAmountWithCurrency = (
       <Flex>
-        <span>{symbol ? parse(symbol) : ""}</span>
+        <span>{symbol ? parse(symbol) : ''}</span>
         <Box>{new Intl.NumberFormat().format(txnAmount)}</Box>
       </Flex>
     );
@@ -92,7 +81,7 @@ const PaymentDetailsTable = () => {
     return txnAmountWithCurrency;
   };
 
-  const getTransactionDateTime = (date) => {
+  const getTransactionDateTime = date => {
     const dates = new Date(date);
 
     // get the date as a string
@@ -155,14 +144,18 @@ const PaymentDetailsTable = () => {
     let mode;
 
     if (!isSubscription && !interval) {
-      mode = "One-Time";
+      mode = 'One-Time';
     } else if (isSubscription && interval) {
-      if (interval === "month") {
-        mode = "Monthly";
-      } else if (interval === "year") {
-        mode = "Year";
-      } else if (interval === "week") {
-        mode = "Weekly";
+      if (interval === 'month') {
+        mode = 'Monthly';
+      } else if (interval === 'year') {
+        mode = 'Year';
+      } else if (interval === 'week') {
+        mode = 'Weekly';
+      } else if (interval === '3_months') {
+        mode = '3 Months';
+      } else if (interval === '6_months') {
+        mode = '6 Months';
       }
     }
 
@@ -265,17 +258,13 @@ const PaymentDetailsTable = () => {
             </Thead>
             <Tbody>
               {payments &&
-                payments.map((payment) => (
+                payments.map(payment => (
                   <Tr key={payment.id}>
                     <Td>
-                      <Typography textColor="neutral800">
-                        {payment.customerName}
-                      </Typography>
+                      <Typography textColor="neutral800">{payment.customerName}</Typography>
                     </Td>
                     <Td>
-                      <Typography textColor="neutral800">
-                        {payment.customerEmail}
-                      </Typography>
+                      <Typography textColor="neutral800">{payment.customerEmail}</Typography>
                     </Td>
                     <Td>
                       <Typography textColor="neutral800">
@@ -287,10 +276,7 @@ const PaymentDetailsTable = () => {
                     </Td>
                     <Td>
                       <Typography textColor="neutral800">
-                        {getTransactionAmount(
-                          payment.txnAmount,
-                          productDetail?.currency
-                        )}
+                        {getTransactionAmount(payment.txnAmount, productDetail?.currency)}
                       </Typography>
                     </Td>
                     <Td>
@@ -324,9 +310,7 @@ const PaymentDetailsTable = () => {
             {[...Array(pageCount)].map((count, idx) => (
               <PageLink
                 number={idx + 1}
-                to={`/plugins/strapi-paypal/report/${productId}/${productName}?page=${
-                  idx + 1
-                }`}
+                to={`/plugins/strapi-paypal/report/${productId}/${productName}?page=${idx + 1}`}
               >
                 Go to page 1
               </PageLink>
@@ -341,7 +325,7 @@ const PaymentDetailsTable = () => {
             </NextLink>
           </Pagination>
         ) : (
-          ""
+          ''
         )}
       </Flex>
     </>
