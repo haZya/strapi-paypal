@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = async (policyContext, config, { strapi }) => {
+  if (!policyContext.request.header.authorization) {
+    return false;
+  }
+
   const bearerToken = policyContext.request.header.authorization.substring('Bearer '.length);
 
   if (!bearerToken) {
