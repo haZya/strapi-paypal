@@ -68,18 +68,22 @@ module.exports = {
     trialPeriodDays: {
       type: 'integer',
       configurable: false,
+      private: true,
     },
     paypalOrderId: {
       type: 'string',
       configurable: false,
+      private: true,
     },
     paypalSubcriptionId: {
       type: 'string',
       configurable: false,
+      private: true,
     },
     paypalLinks: {
       type: 'json',
       configurable: false,
+      private: true,
     },
     paypalPayment: {
       type: 'relation',
@@ -87,6 +91,7 @@ module.exports = {
       target: 'plugin::strapi-paypal.paypal-payment',
       mappedBy: 'paypalProduct',
       configurable: false,
+      private: true,
     },
   },
 };
